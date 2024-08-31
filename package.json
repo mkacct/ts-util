@@ -6,6 +6,7 @@
 		"type": "git",
 		"url": "https://github.com/mkacct/ts-util.git"
 	},
+	"license": "MIT",
 	"type": "module",
 	"main": "build/main/main.js",
 	"types": "build/main/main.d.ts",
