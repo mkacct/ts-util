@@ -11,6 +11,7 @@ jobs:
       - name: Setup Node.js
         with:
           node-version: 22
+          cache: npm
         uses: actions/setup-node@v4
       - run: npm ci
       - run: npm run build
