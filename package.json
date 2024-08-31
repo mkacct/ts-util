@@ -5,6 +5,9 @@
 	"type": "module",
 	"main": "build/main/main.js",
 	"types": "build/main/main.d.ts",
+	"publishConfig": {
+		"@mkacct:registry": "https://npm.pkg.github.com"
+	},
 	"scripts": {
 		"prebuild": "rimraf build",
 		"build": "npx tsc",
