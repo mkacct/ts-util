@@ -4,7 +4,7 @@
 	"description": "Utilities convenient for any JS/TS project",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mkacct/ts-util.git"
+		"url": "git+https://github.com/mkacct/ts-util.git"
 	},
 	"license": "MIT",
 	"type": "module",
