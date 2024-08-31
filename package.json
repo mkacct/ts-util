@@ -2,6 +2,10 @@
 	"name": "@mkacct/ts-util",
 	"version": "1.0.0",
 	"description": "Utilities convenient for any JS/TS project",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mkacct/ts-util.git"
+	},
 	"type": "module",
 	"main": "build/main/main.js",
 	"types": "build/main/main.d.ts",
