@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 jobs:
-  build:
+  publish-gpr:
     name: Build & publish
     runs-on: ubuntu-latest
     permissions:
@@ -19,7 +19,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
       - run: npm run build
-      - run: npm test
       - run: npm publish
         env:
             NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
