@@ -10,7 +10,7 @@ export default tseslint.config(
 			"eqeqeq": ["error", "always"],
 			"prefer-const": "off",
 			"@typescript-eslint/no-empty-object-type": "warn",
-			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/no-explicit-any": "warn",
 			"@typescript-eslint/no-unused-vars": ["warn", {
 				argsIgnorePattern: "^_",
 			}]

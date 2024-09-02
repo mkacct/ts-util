@@ -1,13 +1,18 @@
 // General utilities for TypeScript
 
 /** Any string-keyed object */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyObject = {[key: string]: any};
+
+/** Not null or undefined */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export type Value = {};
 
 /**
  * @param value anything
  * @returns true iff value is neither undefined nor null
  */
-export function isValue(value: unknown): value is NonNullable<typeof value> {
+export function isValue(value: unknown): value is Value {
 	return (value !== undefined) && (value !== null);
 }
 
