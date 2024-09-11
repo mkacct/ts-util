@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import test, {describe as suite} from "node:test";
-import {between, collapse, isClosedInterval, isInterval, isValue, minusProps, padNumber, propsEq, range} from "../main/gen-util.js";
+import test, {suite} from "node:test";
+import {between, collapse, isValue, minusProps, padNumber, propsEq, range} from "../main/gen-util.js";
 
 suite("General utilities", (): void => {
 
@@ -40,30 +40,6 @@ suite("General utilities", (): void => {
 		assert.deepEqual(range(3.2, 6.1), [3.2, 4.2, 5.2]);
 		assert.deepEqual(range(3.2, 6.7, 0.5), [3.2, 3.7, 4.2, 4.7, 5.2, 5.7, 6.2, 6.7]);
 		assert.deepEqual(range(3.2, 6.6, 0.5), [3.2, 3.7, 4.2, 4.7, 5.2, 5.7, 6.2]);
-	});
-
-	test("isInterval", (): void => {
-		assert.equal(isInterval(undefined), false);
-		assert.equal(isInterval(null), false);
-		assert.equal(isInterval(3), false);
-		assert.equal(isInterval({}), false);
-		assert.equal(isInterval({min: 3}), true);
-		assert.equal(isInterval({max: 3}), true);
-		assert.equal(isInterval({min: 3, max: 5.5}), true);
-		assert.equal(isInterval({min: 3, max: 5, foo: 7}), true);
-		assert.equal(isInterval({min: "foo"}), false);
-		assert.equal(isInterval({min: NaN}), false);
-		assert.equal(isInterval({min: 3, max: NaN}), false);
-		assert.equal(isInterval({min: 3, max: 2}), false);
-	});
-
-	test("isClosedInterval", (): void => {
-		assert.equal(isClosedInterval({min: 3}), false);
-		assert.equal(isClosedInterval({max: 5}), false);
-		assert.equal(isClosedInterval({min: -Infinity, max: 5}), false);
-		assert.equal(isClosedInterval({min: 4, max: Infinity}), false);
-		assert.equal(isClosedInterval({min: Infinity, max: Infinity}), false);
-		assert.equal(isClosedInterval({min: 3, max: 5}), true);
 	});
 
 	test("collapse", (): void => {

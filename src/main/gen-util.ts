@@ -40,47 +40,6 @@ export function range(min: number, max: number, step: number = 1): number[] {
 	return res;
 }
 
-/** A numeric interval */
-export interface Interval {
-	readonly min?: number;
-	readonly max?: number;
-}
-
-/**
- * @param value anything
- * @returns true iff value is an Interval
- */
-export function isInterval(value: unknown): value is Interval {
-	if (typeof value !== "object") {return false;}
-	if (value === null) {return false;}
-	let hasMin: boolean = false, hasMax: boolean = false;
-	if (("min" in value) && (value.min !== undefined)) {
-		hasMin = true;
-		if (typeof value.min !== "number") {return false;}
-		if (isNaN(value.min)) {return false;}
-	}
-	if (("max" in value) && (value.max !== undefined)) {
-		hasMax = true;
-		if (typeof value.max !== "number") {return false;}
-		if (isNaN(value.max)) {return false;}
-	}
-	if (!hasMin && !hasMax) {return false;}
-	if (hasMin && hasMax) {
-		const valueWithBoth: Required<Interval> = value as Required<Interval>;
-		if (valueWithBoth.min > valueWithBoth.max) {return false;}
-	}
-	return true;
-}
-
-/**
- * @param value an interval
- * @returns true iff the interval is closed (defined finite min and max)
- */
-export function isClosedInterval(value: Interval): boolean {
-	return (value.min !== undefined) && (value.max !== undefined)
-		&& isFinite(value.min) && isFinite(value.max) && (value.min <= value.max);
-}
-
 /**
  * @param str input string
  * @returns string with all whitespace collapsed to single spaces
