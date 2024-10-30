@@ -112,7 +112,7 @@ export class Interval {
 	 * @param other another interval
 	 * @returns true iff this interval entirely contains the other interval
 	 */
-	public isSubsetOrEqual(other: Interval) {
+	public isSubsetOrEqual(other: Interval): boolean {
 		if (other.rep === null) {return true;}
 		if (this.rep === null) {return false;}
 		if (this.rep.min > other.rep.min) {return false;}
@@ -126,7 +126,7 @@ export class Interval {
 	 * @param other another interval
 	 * @returns true iff this interval entirely contains the other interval and is not equal to it
 	 */
-	public isStrictSubset(other: Interval) {
+	public isStrictSubset(other: Interval): boolean {
 		return !this.equals(other) && this.isSubsetOrEqual(other);
 	}
 
