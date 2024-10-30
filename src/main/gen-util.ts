@@ -51,11 +51,13 @@ export function collapse(str: string): string {
 /**
  * @param n input number
  * @param length minimum length of the output string
- * @returns number with zeroes prepended to meet the minimum length
+ * @param pad character to pad with (default "0")
+ * @returns number with pad character repeatedly prepended to meet the minimum length
  */
-export function padNumber(n: number, length: number): string {
+export function padNumber(n: number, length: number, pad: string = "0"): string {
+	if (pad.length !== 1) {throw new Error("pad must be one character");}
 	let s: string = n.toString();
-	while (s.length < length) {s = "0" + s;}
+	while (s.length < length) {s = pad + s;}
 	return s;
 }
 

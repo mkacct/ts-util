@@ -60,6 +60,12 @@ suite("General utilities", (): void => {
 		assert.equal(padNumber(7.93, 4), "7.93");
 		assert.equal(padNumber(7.93, 5), "07.93");
 		assert.equal(padNumber(7.93, 9), "000007.93");
+
+		assert.equal(padNumber(7.93, 9, "0"), "000007.93");
+		assert.equal(padNumber(7.93, 9, " "), "     7.93");
+		assert.equal(padNumber(7.93, 7, "\u2022"), "\u2022\u2022\u20227.93");
+		assert.throws(() => {padNumber(7.93, 9, "");});
+		assert.throws(() => {padNumber(7.93, 9, "fo");});
 	});
 
 	test("propsEq", (): void => {
