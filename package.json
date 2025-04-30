@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "2.2.1",
+	"version": "3.0.0",
 	"description": "Utilities convenient for any JS/TS project",
 	"repository": {
 		"type": "git",

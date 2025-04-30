@@ -1,12 +1,14 @@
 // General utilities for TypeScript
 
-/** Any string-keyed object */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyObject = {[key: string]: any};
+export type AnyRecord = Record<any, any>;
 
 /** Not null or undefined */
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type Value = {};
+
+export type ObjectKey = string | number | symbol;
+export type EnumMember = number | string;
 
 /**
  * @param value anything
@@ -14,6 +16,16 @@ export type Value = {};
  */
 export function isValue(value: unknown): value is Value {
 	return (value !== undefined) && (value !== null);
+}
+
+/**
+ * Throws iff value is undefined or null
+ * @param value anything
+ * @returns value
+ */
+export function requireNonNullish<T extends Value>(value: T | undefined | null): T {
+	if (!isValue(value)) {throw new Error("Value must not be nullish");}
+	return value;
 }
 
 /**
@@ -80,8 +92,8 @@ export function propsEq(obj: object, checks: object): boolean {
  * @param minusKeys keys to remove
  * @returns shallow copy of obj with keys in minusKeys removed
  */
-export function minusProps(obj: AnyObject, minusKeys: string[]): AnyObject {
-	const result: AnyObject = {};
+export function minusProps(obj: AnyRecord, minusKeys: string[]): AnyRecord {
+	const result: AnyRecord = {};
 	for (const key in obj) {
 		if (!minusKeys.includes(key)) {
 			result[key] = obj[key];

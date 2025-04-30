@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {between, collapse, isValue, minusProps, padNumber, propsEq, range} from "../main/gen-util.js";
+import {between, collapse, isValue, minusProps, requireNonNullish, padNumber, propsEq, range} from "../main/gen-util.js";
 
 suite("General utilities", (): void => {
 
@@ -22,6 +22,28 @@ suite("General utilities", (): void => {
 		assert.equal(isValue({foo: 3}), true);
 		assert.equal(isValue({}), true);
 		assert.equal(isValue(new Promise<null>((resolve) => {resolve(null);})), true);
+	});
+
+	test("requireNonNullish", (): void => {
+		assert.throws(() => {requireNonNullish(undefined);});
+		assert.throws(() => {requireNonNullish(null);});
+
+		assert.equal(requireNonNullish(true), true);
+		assert.equal(requireNonNullish(false), false);
+		assert.equal(requireNonNullish(3), 3);
+		assert.equal(requireNonNullish(0), 0);
+		assert.equal(requireNonNullish(Infinity), Infinity);
+		assert.ok(isNaN(requireNonNullish(NaN)));
+		assert.equal(requireNonNullish("foo"), "foo");
+		assert.equal(requireNonNullish(""), "");
+		const symbol: symbol = Symbol();
+		assert.equal(requireNonNullish(symbol), symbol);
+		assert.deepEqual(requireNonNullish([3]), [3]);
+		assert.deepEqual(requireNonNullish([]), []);
+		assert.deepEqual(requireNonNullish({foo: 3}), {foo: 3});
+		assert.deepEqual(requireNonNullish({}), {});
+		const promise: Promise<null> = new Promise((resolve) => {resolve(null);});
+		assert.equal(requireNonNullish(promise), promise);
 	});
 
 	test("between", (): void => {
