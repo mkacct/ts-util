@@ -2,7 +2,7 @@
 
 const SW_DEFAULT = Symbol("default");
 
-type SwCase<E, R> = [condition: SwCondition<E>, result: SwResult<E, R>];
+type SwCase<E, R> = readonly [condition: SwCondition<E>, result: SwResult<E, R>];
 type SwCondition<E> = Exclude<E, Function> | ((value: Exclude<E, Function>) => boolean) | typeof SW_DEFAULT;
 type SwResult<E, R> = ((value: E) => R) | Exclude<R, Function>;
 
@@ -22,9 +22,9 @@ function checkSwCondition<E>(value: Exclude<E, Function>, condition: SwCondition
  * @param value value to match against cases
  * @param cases array of [condition, result] pairs, both of which may either be a constant or a function
  * @returns result of the first case matched by value
- * @throws SwitchError if value does not match any cases
+ * @throws {SwitchError} if value does not match any cases
  */
-export function sw<E, R>(value: Exclude<E, Function>, cases: SwCase<E, R>[]): R {
+export function sw<E, R>(value: Exclude<E, Function>, cases: ReadonlyArray<SwCase<E, R>>): R {
 	for (const [condition, result] of cases) {
 		if (checkSwCondition(value, condition)) {
 			return isFunction(result) ? result(value) : result;
@@ -43,7 +43,7 @@ sw.DEFAULT = SW_DEFAULT;
  * @param conditions one or more sw() conditions
  * @returns condition that is true iff at least one of the given conditions is true
  */
-sw.or = <E>(...conditions: SwCondition<E>[]): SwCondition<E> => (
+sw.or = <E>(...conditions: ReadonlyArray<SwCondition<E>>): SwCondition<E> => (
 	(value: Exclude<E, Function>): boolean => conditions.some((condition) => checkSwCondition(value, condition))
 );
 
@@ -51,7 +51,7 @@ sw.or = <E>(...conditions: SwCondition<E>[]): SwCondition<E> => (
  * @param conditions one or more sw() conditions
  * @returns condition that is true iff all of the given conditions are true
  */
-sw.and = <E>(...conditions: SwCondition<E>[]): SwCondition<E> => (
+sw.and = <E>(...conditions: ReadonlyArray<SwCondition<E>>): SwCondition<E> => (
 	(value: Exclude<E, Function>): boolean => conditions.every((condition) => checkSwCondition(value, condition))
 );
 

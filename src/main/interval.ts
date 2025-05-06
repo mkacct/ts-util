@@ -1,10 +1,10 @@
 // Class representing a numeric interval
 
 type IntervalRep = {
-	min: number;
-	max: number;
-	minClosed: boolean;
-	maxClosed: boolean;
+	readonly min: number;
+	readonly max: number;
+	readonly minClosed: boolean;
+	readonly maxClosed: boolean;
 } | null;
 
 type IntervalLeftBracket = "[" | "(";

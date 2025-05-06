@@ -44,7 +44,7 @@ export function between(value: number, low: number, high: number): boolean {
  * @param step increment (default 1)
  * @returns array of numbers from min to max inclusive, in steps of step
  */
-export function range(min: number, max: number, step: number = 1): number[] {
+export function range(min: number, max: number, step: number = 1): ReadonlyArray<number> {
 	const res: number[] = [];
 	for (let i = min; i <= max; i += step) {
 		res.push(i);
@@ -92,7 +92,7 @@ export function propsEq(obj: object, checks: object): boolean {
  * @param minusKeys keys to remove
  * @returns shallow copy of obj with keys in minusKeys removed
  */
-export function minusProps(obj: AnyRecord, minusKeys: string[]): AnyRecord {
+export function minusProps(obj: AnyRecord, minusKeys: ReadonlyArray<string>): AnyRecord {
 	const result: AnyRecord = {};
 	for (const key in obj) {
 		if (!minusKeys.includes(key)) {
