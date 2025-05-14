@@ -1,15 +1,16 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "3.0.1",
+	"version": "3.0.2",
+	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Utilities convenient for any JS/TS project",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/mkacct/ts-util.git"
-	},
+	"keywords": ["util"],
+	"repository": {"type": "git", "url": "git+https://github.com/mkacct/ts-util.git"},
+	"bugs": {"url": "https://github.com/mkacct/ts-util/issues"},
 	"license": "MIT",
 	"type": "module",
-	"main": "build/main/main.js",
-	"types": "build/main/main.d.ts",
+	"files": ["/build/main"],
+	"main": "/build/main/main.js",
+	"types": "/build/main/main.d.ts",
 	"scripts": {
 		"prebuild": "rimraf build",
 		"build": "npx tsc",
