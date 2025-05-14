@@ -8,9 +8,9 @@
 	"bugs": {"url": "https://github.com/mkacct/ts-util/issues"},
 	"license": "MIT",
 	"type": "module",
-	"files": ["/build/main"],
-	"main": "/build/main/main.js",
-	"types": "/build/main/main.d.ts",
+	"files": ["build/main"],
+	"main": "build/main/main.js",
+	"types": "build/main/main.d.ts",
 	"scripts": {
 		"prebuild": "rimraf build",
 		"build": "npx tsc",
