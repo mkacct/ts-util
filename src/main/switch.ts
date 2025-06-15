@@ -24,7 +24,7 @@ function checkSwCondition<E>(value: Exclude<E, Function>, condition: SwCondition
  * @returns result of the first case matched by value
  * @throws {SwitchError} if value does not match any cases
  */
-export function sw<E, R>(value: Exclude<E, Function>, cases: ReadonlyArray<SwCase<E, R>>): R {
+export default function sw<E, R>(value: Exclude<E, Function>, cases: ReadonlyArray<SwCase<E, R>>): R {
 	for (const [condition, result] of cases) {
 		if (checkSwCondition(value, condition)) {
 			return isFunction(result) ? result(value) : result;

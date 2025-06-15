@@ -14,7 +14,7 @@ type IntervalRightBracket = "]" | ")";
  * A numeric interval
  * @note immutable
  */
-export class Interval {
+export default class Interval {
 
 	/** The empty interval */
 	public static readonly EMPTY = new Interval("(", 0, 0, ")");

@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "3.0.3",
+	"version": "4.0.0",
 	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Utilities convenient for any JS/TS project",
 	"keywords": ["util"],
@@ -9,8 +9,24 @@
 	"license": "MIT",
 	"type": "module",
 	"files": ["build/main"],
-	"main": "build/main/main.js",
-	"types": "build/main/main.d.ts",
+	"exports": {
+		".": {
+			"default": "./build/main/gen-util.js",
+			"types": "./build/main/gen-util.d.ts"
+		},
+		"./switch": {
+			"default": "./build/main/switch.js",
+			"types": "./build/main/switch.d.ts"
+		},
+		"./interval": {
+			"default": "./build/main/interval.js",
+			"types": "./build/main/interval.d.ts"
+		},
+		"./date-util": {
+			"default": "./build/main/date-util.js",
+			"types": "./build/main/date-util.d.ts"
+		}
+	},
 	"scripts": {
 		"prebuild": "rimraf build",
 		"build": "npx tsc",

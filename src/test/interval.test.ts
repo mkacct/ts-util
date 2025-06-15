@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {Interval} from "../main/interval.js";
+import Interval from "../main/interval.js";
 
 suite("Interval", (): void => {
 
