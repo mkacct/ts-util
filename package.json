@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "4.0.2",
+	"version": "4.1.0",
 	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Utilities convenient for any JS/TS project",
 	"keywords": ["util"],

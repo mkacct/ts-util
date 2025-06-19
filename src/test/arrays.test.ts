@@ -293,6 +293,8 @@ suite("Arrays", (): void => {
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[1, 3, 5, 7], 0], [[1, 3, 5, 7]]);
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[1, 3, 5, 7], 3], [[1], [5, 7]]);
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[6, 0, 5, 5, 0, 1, 2, 0, 0, 9], 0], [[6], [5, 5], [1, 2], [], [9]]);
+
+		// limit
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[6, 0, 5, 5, 0, 1, 2, 0, 0, 9], 0, 3], [[6], [5, 5], [1, 2]]);
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[6, 0, 5, 5, 0, 1, 2, 0, 0, 9], 0, 1], [[6]]);
 		assertArrayOp<unknown, Args>(false, Arrays.split, [[6, 0, 5, 5, 0, 1, 2, 0, 0, 9], 0, 0], []);
@@ -304,14 +306,56 @@ suite("Arrays", (): void => {
 		assertArrayOp<unknown, Args>(false, Arrays.splitByPredicate, [[1, 2, 3, 2, 3, 2, 1], () => false], [[1, 2, 3, 2, 3, 2, 1]]);
 		assertArrayOp<unknown, Args>(false, Arrays.splitByPredicate, [[1, 2, 3, 2, 3, 2, 1], (value) => value === 3], [[1, 2],  [2], [2, 1]]);
 		assertArrayOp<unknown, Args>(false, Arrays.splitByPredicate, [[1, 2, 3, 2, 3, 2, 1], (_value, index) => index === 3], [[1, 2, 3],  [3, 2, 1]]);
+
+		// limit
 		assertArrayOp<unknown, Args>(false, Arrays.splitByPredicate, [[1, 2, 3, 2, 3, 2, 1], (value) => value === 3, 2], [[1, 2],  [2]]);
 
+		// obj parameter
+		const arr = [6];
 		let arg3: unknown;
-		Arrays.splitByPredicate([6], (_value, _index, obj) => {
+		Arrays.splitByPredicate(arr, (_value, _index, obj) => {
 			arg3 = obj;
 			return false;
 		});
+		assert.equal(arg3, arr);
 		assert.deepEqual(arg3, [6]);
+	});
+
+	test("splitBySubarray", (): void => {
+		type Args = [unknown[], number?];
+
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[], []], []);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[], [8]], [[]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[1, 2, 3], []], [[1], [2], [3]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[1, 2, 3], [5]], [[1, 2, 3]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[1, 3, 5, 7], [5]], [[1, 3], [7]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[1, 2, 3, 2, 3, 3, 2, 1, 3, 3], [3, 3]], [[1, 2, 3, 2], [2, 1], []]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[3, 3, 1, 2, 3, 2, 3, 3, 2, 1], [3, 3]], [[], [1, 2, 3, 2], [2, 1]]);
+
+		// limit
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[6, 5, 0, 2, 0, 4, 4, 2, 0, 1, 0], [2, 0]], [[6, 5, 0], [4, 4], [1, 0]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[6, 5, 0, 2, 0, 4, 4, 2, 0, 1, 0], [2, 0], 6], [[6, 5, 0], [4, 4], [1, 0]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[6, 5, 0, 2, 0, 4, 4, 2, 0, 1, 0], [2, 0], 3], [[6, 5, 0], [4, 4], [1, 0]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[6, 5, 0, 2, 0, 4, 4, 2, 0, 1, 0], [2, 0], 2], [[6, 5, 0], [4, 4]]);
+		assertArrayOp<unknown, Args>(false, Arrays.splitBySubarray, [[6, 5, 0, 2, 0, 4, 4, 2, 0, 1, 0], [2, 0], 0], []);
+	});
+
+	test("joinArrays", (): void => {
+		assert.deepEqual(Arrays.joinArrays([], 0), []);
+		assert.deepEqual(Arrays.joinArrays([[1, 2, 3]], 0), [1, 2, 3]);
+		assert.deepEqual(Arrays.joinArrays([[1, 2], [3, 4, 5]], 0), [1, 2, 0, 3, 4, 5]);
+		assert.deepEqual(Arrays.joinArrays([[2, 3], [5, 7], [11]], 42), [2, 3, 42, 5, 7, 42, 11]);
+	});
+
+	test("joinArraysByArray", (): void => {
+		assert.deepEqual(Arrays.joinArraysByArray([], [0]), []);
+		assert.deepEqual(Arrays.joinArraysByArray([[1, 2, 3]], [0]), [1, 2, 3]);
+		assert.deepEqual(Arrays.joinArraysByArray([[1, 2], [3, 4, 5]], [0]), [1, 2, 0, 3, 4, 5]);
+		assert.deepEqual(Arrays.joinArraysByArray([[2, 3], [5, 7], [11]], [42]), [2, 3, 42, 5, 7, 42, 11]);
+
+		assert.deepEqual(Arrays.joinArraysByArray([], [1, 2, 3]), []);
+		assert.deepEqual(Arrays.joinArraysByArray([[1]], [1, 2, 3]), [1]);
+		assert.deepEqual(Arrays.joinArraysByArray([[2, 3], [5, 7], [11]], [2, 3]), [2, 3, 2, 3, 5, 7, 2, 3, 11]);
 	});
 
 });

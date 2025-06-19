@@ -236,6 +236,80 @@ export default class Arrays {
 		return res;
 	}
 
+	/**
+	 * Split an array into subarrays using the specified separator and return them as an array
+	 * @param array
+	 * @param separator an array of values to use in separating `array`
+	 * @param limit a value used to limit the number of elements returned in the array
+	 * @returns array of subarrays
+	 * @throws {RangeError} if `limit` is negative
+	 * @note this method does not mutate `array`
+	 */
+	public static splitBySubarray<T>(array: readonly T[], separator: readonly T[], limit?: number): T[][] {
+		const limitInt = isValue(limit) ? toInt(limit) : Infinity;
+		if (limitInt < 0) {throw new RangeError(`Invalid limit value: ${limit}`);}
+		if (limitInt === 0) {return [];}
+
+		const res: T[][] = [];
+		if (separator.length === 0) {
+
+			for (const value of array) {
+				res.push([value]);
+				if (res.length >= limitInt) {
+					return res;
+				}
+			}
+
+		} else {
+
+			let cur: T[] = [];
+			let i = 0;
+			while (i < array.length) {
+				if (Arrays.isSubarrayAtIndex(array, separator, i)) {
+					res.push(cur);
+					if (res.length >= limitInt) {
+						return res;
+					}
+					cur = [];
+					i += separator.length;
+				} else {
+					cur.push(array[i]);
+					i++;
+				}
+			}
+			res.push(cur);
+
+		}
+		return res;
+	}
+
+	/**
+	 * Adds all the elements of an array of arrays into an array, separated by the specified separator value
+	 * @param array
+	 * @param separator a value used to separate one array from the next in the resulting array
+	 * @returns an array, separated by `separator`
+	 */
+	public static joinArrays<T>(array: readonly T[][], separator: T): T[] {
+		return Arrays.joinArraysByArray(array, [separator]);
+	}
+
+	/**
+	 * Adds all the elements of an array of arrays into an array, separated by the specified separator array
+	 * @param array
+	 * @param separator an array used to separate one array from the next in the resulting array
+	 * @returns an array, separated by `separator`
+	 */
+	public static joinArraysByArray<T>(array: readonly T[][], separator: readonly T[]): T[] {
+		const res: T[] = [];
+		for (const [index, value] of array.entries()) {
+			if (index > 0) {
+				res.push(...separator);
+			}
+			res.push(...value);
+		}
+		return res;
+	}
+
 }
 
 function toInt(n: number): number {
