@@ -17,9 +17,11 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.equals([], [undefined]), false);
 		assert.equal(Arrays.equals([NaN], [NaN]), false);
 
+		// not strict
 		assert.equal(Arrays.equals<string | number>([1, 2, 4, 7], ["1", "2", "4", "7"]), true);
 		assert.equal(Arrays.equals([null], [undefined]), true);
 
+		// sparse arrays
 		assert.equal(Arrays.equals(new Array(1), new Array(1)), true);
 		assert.equal(Arrays.equals(new Array(1), []), false);
 		assert.equal(Arrays.equals(new Array(1), [undefined]), false);
@@ -37,9 +39,11 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.strictEquals([], [undefined]), false);
 		assert.equal(Arrays.strictEquals([NaN], [NaN]), false);
 
+		// strict
 		assert.equal(Arrays.strictEquals<string | number>([1, 2, 4, 7], ["1", "2", "4", "7"]), false);
 		assert.equal(Arrays.strictEquals([null], [undefined]), false);
 
+		// sparse arrays
 		assert.equal(Arrays.strictEquals(new Array(1), new Array(1)), true);
 		assert.equal(Arrays.strictEquals(new Array(1), []), false);
 		assert.equal(Arrays.strictEquals(new Array(1), [undefined]), false);
@@ -62,10 +66,12 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.indexOfSubarray(["foo", null, undefined, 0, Infinity], ["foo", null, undefined, 0, Infinity]), 0);
 		assert.equal(Arrays.indexOfSubarray([{}], [{}]), -1);
 
+		// search forward
 		assert.equal(Arrays.indexOfSubarray([2, 3, 5, 7, 11], []), 0);
 		assert.equal(Arrays.indexOfSubarray([1, 1, 1, 1], [1, 1]), 0);
 		assert.equal(Arrays.indexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [2, 3]), 3);
 
+		// fromIndex
 		assert.equal(Arrays.indexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2]), 0);
 		assert.equal(Arrays.indexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 1), 2);
 		assert.equal(Arrays.indexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 2), 2);
@@ -77,6 +83,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.indexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], -9), 0);
 		assert.equal(Arrays.indexOfSubarray([0, 0, 4], [4], -1), 2);
 
+		// sparse arrays
 		assert.equal(Arrays.indexOfSubarray(new Array(6), new Array(3)), 0);
 		assert.equal(Arrays.indexOfSubarray(new Array(6), new Array(6)), 0);
 		assert.equal(Arrays.indexOfSubarray(new Array(6), new Array(7)), -1);
@@ -102,10 +109,12 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.lastIndexOfSubarray(["foo", null, undefined, 0, Infinity], ["foo", null, undefined, 0, Infinity]), 0);
 		assert.equal(Arrays.lastIndexOfSubarray([{}], [{}]), -1);
 
+		// search backward
 		assert.equal(Arrays.lastIndexOfSubarray([2, 3, 5, 7, 11], []), 5);
 		assert.equal(Arrays.lastIndexOfSubarray([1, 1, 1, 1], [1, 1]), 2);
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [2, 3]), 6);
 
+		// fromIndex
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2]), 5);
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 1), 0);
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 2), 2);
@@ -118,6 +127,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [3], -3), 4);
 		assert.equal(Arrays.lastIndexOfSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], -9), 0);
 
+		// sparse arrays
 		assert.equal(Arrays.lastIndexOfSubarray(new Array(6), new Array(3)), 3);
 		assert.equal(Arrays.lastIndexOfSubarray(new Array(6), new Array(6)), 0);
 		assert.equal(Arrays.lastIndexOfSubarray(new Array(6), new Array(7)), -1);
@@ -147,6 +157,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.includesSubarray([1, 1, 1, 1], [1, 1]), true);
 		assert.equal(Arrays.includesSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [2, 3]), true);
 
+		// fromIndex
 		assert.equal(Arrays.includesSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2]), true);
 		assert.equal(Arrays.includesSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 1), true);
 		assert.equal(Arrays.includesSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], 2), true);
@@ -158,6 +169,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.includesSubarray([1, 2, 1, 2, 3, 1, 2, 3, 3], [1, 2], -9), true);
 		assert.equal(Arrays.includesSubarray([0, 0, 4], [4], -1), true);
 
+		// sparse arrays
 		assert.equal(Arrays.includesSubarray(new Array(6), new Array(3)), true);
 		assert.equal(Arrays.includesSubarray(new Array(6), new Array(6)), true);
 		assert.equal(Arrays.includesSubarray(new Array(6), new Array(7)), false);
@@ -177,6 +189,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [3, 5]), false);
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [undefined]), false);
 
+		// index
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [], 0), true);
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [], 1), true);
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [2], 1), false);
@@ -186,6 +199,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [3, 5], -4), true);
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], [11], -1), true);
 
+		// sparse arrays
 		assert.equal(Arrays.startsWith([2, 3, 5, 7, 11], new Array(1)), false);
 		assert.equal(Arrays.startsWith([, 3, 5, 7, 11], new Array(1)), true);
 		assert.equal(Arrays.startsWith(new Array(3), new Array(1)), true);
@@ -205,6 +219,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [5, 7]), false);
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [undefined]), false);
 
+		// endIndex
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [], 0), true);
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [], 1), true);
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [11], 1), false);
@@ -214,6 +229,7 @@ suite("Arrays", (): void => {
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [2], -4), true);
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], [3, 5], -2), true);
 
+		// sparse arrays
 		assert.equal(Arrays.endsWith([2, 3, 5, 7, 11], new Array(1)), false);
 		assert.equal(Arrays.endsWith([3, 5, 7, 11, ,], new Array(1)), true);
 		assert.equal(Arrays.endsWith(new Array(3), new Array(1)), true);
@@ -232,6 +248,7 @@ suite("Arrays", (): void => {
 		assertArrayOp(!isCopying, fut, [["bar", "baz"], 5, "foo"], ["foo", "foo", "foo", "bar", "baz"]);
 		assertArrayOp(!isCopying, fut, [["bar", "baz"], 2, "foo"], ["bar", "baz"]);
 
+		// sparse arrays
 		assertArrayOp(!isCopying, fut, [new Array(3), 5, 0], [0, 0, , , ,]);
 	}
 
@@ -247,6 +264,7 @@ suite("Arrays", (): void => {
 		assertArrayOp(!isCopying, fut, [["bar", "baz"], 5, "foo"], ["bar", "baz", "foo", "foo", "foo"]);
 		assertArrayOp(!isCopying, fut, [["bar", "baz"], 2, "foo"], ["bar", "baz"]);
 
+		// sparse arrays
 		assertArrayOp(!isCopying, fut, [new Array(3), 5, 0], [, , , 0, 0]);
 	}
 
@@ -260,6 +278,7 @@ suite("Arrays", (): void => {
 		assertArrayOp(false, Arrays.repeat, [["foo", 6, 0], 1], ["foo", 6, 0]);
 		assertArrayOp(false, Arrays.repeat, [["foo", 6, 0], 4], ["foo", 6, 0, "foo", 6, 0, "foo", 6, 0, "foo", 6, 0]);
 
+		// sparse arrays
 		assertArrayOp(false, Arrays.repeat, [new Array(3), 1], new Array(3));
 		assertArrayOp(false, Arrays.repeat, [new Array(3), 4], new Array(12));
 		assertArrayOp(false, Arrays.repeat, [[1, 2, , , 3], 1], [1, 2, , , 3]);
