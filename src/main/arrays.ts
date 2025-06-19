@@ -127,7 +127,7 @@ export default class Arrays {
 	 * @param targetLength the length of `array` once it has been padded; if this parameter is smaller than `array`'s initial length, no action is taken
 	 * @param fillValue the value to pad `array` with
 	 * @returns a reference to `array`
-	 * @note this method mutates `array`
+	 * @note this method mutates `array`!
 	 */
 	public static padStart<T>(array: T[], targetLength: number, fillValue: T): T[] {
 		const targetLengthInt = toInt(targetLength);
@@ -143,7 +143,7 @@ export default class Arrays {
 	 * @param targetLength the length of `array` once it has been padded; if this parameter is smaller than `array`'s initial length, no action is taken
 	 * @param fillValue the value to pad `array` with
 	 * @returns a reference to `array`
-	 * @note this method mutates `array`
+	 * @note this method mutates `array`!
 	 */
 	public static padEnd<T>(array: T[], targetLength: number, fillValue: T): T[] {
 		const targetLengthInt = toInt(targetLength);
@@ -179,6 +179,8 @@ export default class Arrays {
 	 * @param array
 	 * @param count number of copies to append
 	 * @returns an array that is made from `count` copies of `array` appended together, or the empty array if `count` is 0
+	 * @throws {RangeError} if `count` is negative
+	 * @note this method does not mutate `array`
 	 */
 	public static repeat<T>(array: readonly T[], count: number): T[] {
 		const countInt = toInt(count);
@@ -192,6 +194,8 @@ export default class Arrays {
 	 * @param separator a value to use in separating `array`
 	 * @param limit a value used to limit the number of elements returned in the array
 	 * @returns array of subarrays
+	 * @throws {RangeError} if `limit` is negative
+	 * @note this method does not mutate `array`
 	 */
 	public static split<T>(array: readonly T[], separator: T, limit?: number) : T[][] {
 		return Arrays.splitByPredicate(array, (value) => (value === separator), limit);
@@ -203,6 +207,8 @@ export default class Arrays {
 	 * @param predicate a predicate that returns true iff the current element is a separator
 	 * @param limit a value used to limit the number of elements returned in the array
 	 * @returns array of subarrays
+	 * @throws {RangeError} if `limit` is negative
+	 * @note this method does not mutate `array`
 	 */
 	public static splitByPredicate<T>(
 		array: readonly T[],
