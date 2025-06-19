@@ -14,6 +14,10 @@
 			"default": "./build/main/gen-util.js",
 			"types": "./build/main/gen-util.d.ts"
 		},
+		"./arrays": {
+			"default": "./build/main/arrays.js",
+			"types": "./build/main/arrays.d.ts"
+		},
 		"./switch": {
 			"default": "./build/main/switch.js",
 			"types": "./build/main/switch.d.ts"
