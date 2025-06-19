@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Utilities convenient for any JS/TS project",
 	"keywords": ["util"],
@@ -11,8 +11,8 @@
 	"files": ["build/main"],
 	"exports": {
 		".": {
-			"default": "./build/main/gen-util.js",
-			"types": "./build/main/gen-util.d.ts"
+			"default": "./build/main/main.js",
+			"types": "./build/main/main.d.ts"
 		},
 		"./arrays": {
 			"default": "./build/main/arrays.js",

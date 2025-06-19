@@ -1,6 +1,6 @@
 // Utility class with static methods replicating string utilities for arrays
 
-import {isValue} from "./gen-util.js";
+import {isValue} from "./main.js";
 
 /**
  * A class that provides utility functions for working with arrays.

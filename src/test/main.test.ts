@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {between, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish} from "../main/gen-util.js";
+import {between, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish} from "../main/main.js";
 
 suite("General utilities", (): void => {
 

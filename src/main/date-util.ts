@@ -1,6 +1,6 @@
 // Utility functions for date/time
 
-import {padNumber} from "./gen-util.js";
+import {padNumber} from "./main.js";
 
 /**
  * @param year a year (integer) in the Gregorian calendar
