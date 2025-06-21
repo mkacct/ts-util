@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-function-type */
 
-const SW_DEFAULT = Symbol("default");
+const SW_DEFAULT: unique symbol = Symbol("default");
 
 type SwCase<E, R> = readonly [condition: SwCondition<E>, result: SwResult<E, R>];
 type SwCondition<E> = Exclude<E, Function> | ((value: Exclude<E, Function>) => boolean) | typeof SW_DEFAULT;
