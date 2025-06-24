@@ -30,7 +30,7 @@ export default function sw<E, R>(value: Exclude<E, Function>, cases: ReadonlyArr
 			return isFunction(result) ? result(value) : result;
 		}
 	}
-	throw new SwitchError("no match");
+	throw new SwitchError(`No match`);
 }
 
 /**

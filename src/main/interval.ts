@@ -32,18 +32,18 @@ export default class Interval {
 	public constructor(left: IntervalLeftBracket, min: number, max: number, right: IntervalRightBracket) {
 		const minClosed: boolean = left === "[";
 		const maxClosed: boolean = right === "]";
-		if (isNaN(min) || isNaN(max)) {throw new RangeError("min and max must be numbers");}
-		if (min > max) {throw new RangeError("min must be less than or equal to max");}
+		if (isNaN(min) || isNaN(max)) {throw new RangeError(`min and max must be numbers`);}
+		if (min > max) {throw new RangeError(`min must be less than or equal to max`);}
 		if (min === max) {
 			if (!minClosed && !maxClosed) {
 				this.rep = null;
 				return;
 			} else if (!(minClosed && maxClosed)) {
-				throw new RangeError("interval definition is contradictory");
+				throw new RangeError(`Interval definition is contradictory`);
 			}
 		}
 		if ((!isFinite(min) && minClosed) || (!isFinite(max) && maxClosed)) {
-			throw new RangeError("interval cannot include infinite bounds");
+			throw new RangeError(`Interval cannot include infinite bounds`);
 		}
 		this.rep = {min, max, minClosed, maxClosed};
 	}
