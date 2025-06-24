@@ -32,7 +32,9 @@ export default class Interval {
 	public constructor(left: IntervalLeftBracket, min: number, max: number, right: IntervalRightBracket) {
 		const minClosed: boolean = left === "[";
 		const maxClosed: boolean = right === "]";
-		if (isNaN(min) || isNaN(max)) {throw new RangeError(`min and max must be numbers`);}
+		if (!((typeof min === "number") && !isNaN(min) && (typeof max === "number") && !isNaN(max))) {
+			throw new RangeError(`min and max must be numbers`);
+		}
 		if (min > max) {throw new RangeError(`min must be less than or equal to max`);}
 		if (min === max) {
 			if (!minClosed && !maxClosed) {
