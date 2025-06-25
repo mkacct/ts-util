@@ -131,9 +131,7 @@ export default class Arrays {
 	 */
 	public static padStart<T>(array: T[], targetLength: number, fillValue: T): T[] {
 		const targetLengthInt = toInt(targetLength);
-		while (array.length < targetLengthInt) {
-			array.unshift(fillValue);
-		}
+		array.unshift(...Arrays.repeat([fillValue], Math.max(0, targetLengthInt - array.length)));
 		return array;
 	}
 
@@ -147,9 +145,7 @@ export default class Arrays {
 	 */
 	public static padEnd<T>(array: T[], targetLength: number, fillValue: T): T[] {
 		const targetLengthInt = toInt(targetLength);
-		while (array.length < targetLengthInt) {
-			array.push(fillValue);
-		}
+		array.push(...Arrays.repeat([fillValue], Math.max(0, targetLengthInt - array.length)));
 		return array;
 	}
 
@@ -251,6 +247,7 @@ export default class Arrays {
 		if (limitInt === 0) {return [];}
 
 		const res: T[][] = [];
+
 		if (separator.length === 0) {
 
 			for (const value of array) {
@@ -280,6 +277,7 @@ export default class Arrays {
 			res.push(cur);
 
 		}
+
 		return res;
 	}
 
