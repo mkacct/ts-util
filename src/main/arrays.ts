@@ -51,7 +51,7 @@ export default class Arrays {
 
 	private static indexOfSubarrayImpl<T>(
 		array: readonly T[], searchSubarray: readonly T[], fromIndexInt: number, direction: 1 | -1
-	): number {
+	): number { // TODO: use KMP algorithm for better performance?
 		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
 		const upperBound: number = array.length - searchSubarray.length;
 		const startIndex: number = (direction === -1) ? Math.min(fromIndexInt, upperBound) : fromIndexInt;
