@@ -49,6 +49,19 @@ export default class Arrays {
 		return indexInt;
 	}
 
+	private static indexOfSubarrayImpl<T>(
+		array: readonly T[], searchSubarray: readonly T[], fromIndexInt: number, direction: 1 | -1
+	): number {
+		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
+		const upperBound: number = array.length - searchSubarray.length;
+		const startIndex: number = (direction === -1) ? Math.min(fromIndexInt, upperBound) : fromIndexInt;
+		const condition: (i: number) => boolean = (direction === -1) ? ((i: number) => (i >= 0)) : ((i: number) => (i <= upperBound));
+		for (let i = startIndex; condition(i); i += direction) {
+			if (Arrays.isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
+		}
+		return -1;
+	}
+
 	/**
 	 * @param array
 	 * @param searchSubarray the subarray to search for in `array`
@@ -58,12 +71,7 @@ export default class Arrays {
 	 */
 	public static indexOfSubarray<T>(array: readonly T[], searchSubarray: readonly T[], fromIndex?: number): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : 0;
-		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
-		const upperBound: number = array.length - searchSubarray.length;
-		for (let i = fromIndexInt; i <= upperBound; i++) {
-			if (Arrays.isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
-		}
-		return -1;
+		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, 1);
 	}
 
 	/**
@@ -75,12 +83,7 @@ export default class Arrays {
 	 */
 	public static lastIndexOfSubarray<T>(array: readonly T[], searchSubarray: readonly T[], fromIndex?: number): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : Infinity;
-		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
-		const upperBound: number = array.length - searchSubarray.length;
-		for (let i = Math.min(fromIndexInt, upperBound); i >= 0; i--) {
-			if (Arrays.isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
-		}
-		return -1;
+		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, -1);
 	}
 
 	/**
