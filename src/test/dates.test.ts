@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {formatSimpleDate, yearIsLeap} from "../main/date-util.js";
+import {formatSimpleDate, yearIsLeap} from "../main/dates.js";
 
 suite("Date utilities", (): void => {
 
