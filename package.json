@@ -33,6 +33,10 @@
 		"./dates": {
 			"default": "./build/main/dates.js",
 			"types": "./build/main/dates.d.ts"
+		},
+		"./tests": {
+			"default": "./build/main/tests.js",
+			"types": "./build/main/tests.d.ts"
 		}
 	},
 	"scripts": {

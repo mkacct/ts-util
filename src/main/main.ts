@@ -74,6 +74,31 @@ export function padNumber(n: number, length: number, pad: string = "0"): string 
 }
 
 /**
+ * @param arrays
+ * @returns all possible sequences of one element each from the input arrays
+ * @note the order is deterministic
+ */
+export function cartesianProduct<T extends ReadonlyArray<ReadonlyArray<unknown>>>(...arrays: T): {[K in keyof T]: T[K][number];}[] {
+	const res: {[K in keyof T]: T[K][number];}[] = [];
+	const cur: T[number][number][] = new Array(arrays.length);
+	cartesianProductRecurse(arrays, res, cur, 0);
+	return res;
+}
+
+function cartesianProductRecurse<T extends ReadonlyArray<ReadonlyArray<unknown>>>(
+	arrays: T, res: {[K in keyof T]: T[K][number];}[], cur: T[number][number][], index: number
+): void {
+	if (index === arrays.length) {
+		res.push(cur.slice() as {[K in keyof T]: T[K][number];}); // this type narrowing is ok (given that the algorithm works)
+		return;
+	}
+	for (const value of arrays[index]) {
+		cur[index] = value;
+		cartesianProductRecurse(arrays, res, cur, index + 1);
+	}
+}
+
+/**
  * Test if checks is a subset of obj
  * @param obj to check
  * @param checks key/value pairs expected in obj

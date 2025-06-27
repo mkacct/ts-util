@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {between, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish} from "../main/main.js";
+import {between, cartesianProduct, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish} from "../main/main.js";
 
 suite("General utilities", (): void => {
 
@@ -102,6 +102,24 @@ suite("General utilities", (): void => {
 		assert.deepEqual(propsEq(OBJ, {baz: undefined}), true);
 		assert.deepEqual(propsEq(OBJ, {baz: null}), false);
 		assert.deepEqual(propsEq(OBJ, {zee: undefined}), false);
+	});
+
+	test("cartesianProduct", (): void => {
+		assert.deepEqual(cartesianProduct(), [[]]);
+		assert.deepEqual(cartesianProduct([]), []);
+		assert.deepEqual(cartesianProduct([1, 2, 3], []), []);
+		assert.deepEqual(cartesianProduct([1, 2, 3]), [[1], [2], [3]]);
+		assert.deepEqual(cartesianProduct([1, 2, 3], ["a", "b", "c"]), [
+			[1, "a"], [1, "b"], [1, "c"],
+			[2, "a"], [2, "b"], [2, "c"],
+			[3, "a"], [3, "b"], [3, "c"]
+		]);
+		assert.deepEqual(cartesianProduct([1, 2], ["a", "b"], [true, false]), [
+			[1, "a", true], [1, "a", false],
+			[1, "b", true], [1, "b", false],
+			[2, "a", true], [2, "a", false],
+			[2, "b", true], [2, "b", false]
+		]);
 	});
 
 	test("minusProps", (): void => {
