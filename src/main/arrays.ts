@@ -55,7 +55,9 @@ export default class Arrays {
 		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
 		const upperBound: number = array.length - searchSubarray.length;
 		const startIndex: number = (direction === -1) ? Math.min(fromIndexInt, upperBound) : fromIndexInt;
-		const condition: (i: number) => boolean = (direction === -1) ? ((i: number) => (i >= 0)) : ((i: number) => (i <= upperBound));
+		const condition: (i: number) => boolean = (direction === -1)
+			? ((i: number) => (i >= 0))
+			: ((i: number) => (i <= upperBound));
 		for (let i = startIndex; condition(i); i += direction) {
 			if (Arrays.isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
 		}
@@ -69,7 +71,9 @@ export default class Arrays {
 	 * @returns the index of the first occurrence of `searchSubarray`, or -1 if it is not present
 	 * @note negative `fromIndex` counts back from the end of the array, as in `Array.indexOf()`
 	 */
-	public static indexOfSubarray<T>(array: readonly T[], searchSubarray: readonly T[], fromIndex?: number): number {
+	public static indexOfSubarray<T>(
+		array: readonly T[], searchSubarray: readonly T[], fromIndex?: number
+	): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : 0;
 		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, 1);
 	}
@@ -81,7 +85,9 @@ export default class Arrays {
 	 * @returns the index of the last occurrence of `searchSubarray`, or -1 if it is not present
 	 * @note negative `fromIndex` counts back from the end of the array, as in `Array.lastIndexOf()`
 	 */
-	public static lastIndexOfSubarray<T>(array: readonly T[], searchSubarray: readonly T[], fromIndex?: number): number {
+	public static lastIndexOfSubarray<T>(
+		array: readonly T[], searchSubarray: readonly T[], fromIndex?: number
+	): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : Infinity;
 		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, -1);
 	}
@@ -94,7 +100,9 @@ export default class Arrays {
 	 * @returns true iff `searchSubarray` appears as a subarray of `array`, at one or more indices that are greater than or equal to `fromIndex`
 	 * @note if `fromIndex` is undefined, 0 is assumed, so as to search all of `array`
 	 */
-	public static includesSubarray<T>(array: readonly T[], searchSubarray: readonly T[], fromIndex?: number): boolean {
+	public static includesSubarray<T>(
+		array: readonly T[], searchSubarray: readonly T[], fromIndex?: number
+	): boolean {
 		return Arrays.indexOfSubarray(array, searchSubarray, fromIndex) !== -1;
 	}
 
@@ -125,7 +133,8 @@ export default class Arrays {
 	}
 
 	/**
-	 * Pads `array` with `fillValue` (possibly repeated) so that the resulting array reaches a given length; the padding is applied from the start (left) of `array`
+	 * Pads `array` with `fillValue` (possibly repeated) so that the resulting array reaches a given length;
+	 * the padding is applied from the start (left) of `array`
 	 * @param array
 	 * @param targetLength the length of `array` once it has been padded; if this parameter is smaller than `array`'s initial length, no action is taken
 	 * @param fillValue the value to pad `array` with
@@ -139,7 +148,8 @@ export default class Arrays {
 	}
 
 	/**
-	 * Pads `array` with `fillValue` (possibly repeated) so that the resulting array reaches a given length; the padding is applied from the end (right) of `array`
+	 * Pads `array` with `fillValue` (possibly repeated) so that the resulting array reaches a given length;
+	 * the padding is applied from the end (right) of `array`
 	 * @param array
 	 * @param targetLength the length of `array` once it has been padded; if this parameter is smaller than `array`'s initial length, no action is taken
 	 * @param fillValue the value to pad `array` with

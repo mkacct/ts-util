@@ -78,7 +78,9 @@ export function padNumber(n: number, length: number, pad: string = "0"): string 
  * @returns all possible sequences of one element each from the input arrays
  * @note the order is deterministic
  */
-export function cartesianProduct<T extends ReadonlyArray<ReadonlyArray<unknown>>>(...arrays: T): {[K in keyof T]: T[K][number];}[] {
+export function cartesianProduct<T extends ReadonlyArray<ReadonlyArray<unknown>>>(
+	...arrays: T
+): {[K in keyof T]: T[K][number];}[] {
 	const res: {[K in keyof T]: T[K][number];}[] = [];
 	const cur: T[number][number][] = new Array(arrays.length);
 	cartesianProductRecurse(arrays, res, cur, 0);
@@ -89,7 +91,8 @@ function cartesianProductRecurse<T extends ReadonlyArray<ReadonlyArray<unknown>>
 	arrays: T, res: {[K in keyof T]: T[K][number];}[], cur: T[number][number][], index: number
 ): void {
 	if (index === arrays.length) {
-		res.push(cur.slice() as {[K in keyof T]: T[K][number];}); // this type narrowing is ok (given that the algorithm works)
+		// the following type narrowing is ok (given that the algorithm works)
+		res.push(cur.slice() as {[K in keyof T]: T[K][number];});
 		return;
 	}
 	for (const value of arrays[index]) {
