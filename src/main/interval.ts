@@ -19,7 +19,7 @@ export default class Interval {
 	/** The empty interval */
 	public static readonly EMPTY = new Interval("(", 0, 0, ")");
 
-	private readonly rep: IntervalRep;
+	readonly #rep: IntervalRep;
 
 	/**
 	 * Create a new interval
@@ -38,7 +38,7 @@ export default class Interval {
 		if (min > max) {throw new RangeError(`min must be less than or equal to max`);}
 		if (min === max) {
 			if (!minClosed && !maxClosed) {
-				this.rep = null;
+				this.#rep = null;
 				return;
 			} else if (!(minClosed && maxClosed)) {
 				throw new RangeError(`Interval definition is contradictory`);
@@ -47,7 +47,7 @@ export default class Interval {
 		if ((!isFinite(min) && minClosed) || (!isFinite(max) && maxClosed)) {
 			throw new RangeError(`Interval cannot include infinite bounds`);
 		}
-		this.rep = {min, max, minClosed, maxClosed};
+		this.#rep = {min, max, minClosed, maxClosed};
 	}
 
 	/**
@@ -77,10 +77,10 @@ export default class Interval {
 	public contains(n: number): boolean {
 		if (isNaN(n)) {return false;}
 		if (!isFinite(n)) {return false;}
-		if (this.rep === null) {return false;}
-		if ((n < this.rep.min) || (n > this.rep.max)) {return false;}
-		if (!this.rep.minClosed && (n === this.rep.min)) {return false;}
-		if (!this.rep.maxClosed && (n === this.rep.max)) {return false;}
+		if (this.#rep === null) {return false;}
+		if ((n < this.#rep.min) || (n > this.#rep.max)) {return false;}
+		if (!this.#rep.minClosed && (n === this.#rep.min)) {return false;}
+		if (!this.#rep.maxClosed && (n === this.#rep.max)) {return false;}
 		return true;
 	}
 
@@ -89,12 +89,12 @@ export default class Interval {
 	 * @returns true iff the two intervals are equal
 	 */
 	public equals(other: Interval): boolean {
-		if ((this.rep === null) && (other.rep === null)) {return true;}
-		if ((this.rep === null) || (other.rep === null)) {return false;}
-		return (this.rep.min === other.rep.min)
-			&& (this.rep.max === other.rep.max)
-			&& (this.rep.minClosed === other.rep.minClosed)
-			&& (this.rep.maxClosed === other.rep.maxClosed);
+		if ((this.#rep === null) && (other.#rep === null)) {return true;}
+		if ((this.#rep === null) || (other.#rep === null)) {return false;}
+		return (this.#rep.min === other.#rep.min)
+			&& (this.#rep.max === other.#rep.max)
+			&& (this.#rep.minClosed === other.#rep.minClosed)
+			&& (this.#rep.maxClosed === other.#rep.maxClosed);
 	}
 
 	/**
@@ -102,11 +102,11 @@ export default class Interval {
 	 * @returns true iff the two intervals intersect
 	 */
 	public intersects(other: Interval): boolean {
-		if ((this.rep === null) || (other.rep === null)) {return false;}
-		if (this.rep.max < other.rep.min) {return false;}
-		if (this.rep.min > other.rep.max) {return false;}
-		if ((this.rep.max === other.rep.min) && (!this.rep.maxClosed || !other.rep.minClosed)) {return false;}
-		if ((this.rep.min === other.rep.max) && (!this.rep.minClosed || !other.rep.maxClosed)) {return false;}
+		if ((this.#rep === null) || (other.#rep === null)) {return false;}
+		if (this.#rep.max < other.#rep.min) {return false;}
+		if (this.#rep.min > other.#rep.max) {return false;}
+		if ((this.#rep.max === other.#rep.min) && (!this.#rep.maxClosed || !other.#rep.minClosed)) {return false;}
+		if ((this.#rep.min === other.#rep.max) && (!this.#rep.minClosed || !other.#rep.maxClosed)) {return false;}
 		return true;
 	}
 
@@ -115,12 +115,12 @@ export default class Interval {
 	 * @returns true iff this interval entirely contains the other interval
 	 */
 	public isSubsetOrEqual(other: Interval): boolean {
-		if (other.rep === null) {return true;}
-		if (this.rep === null) {return false;}
-		if (this.rep.min > other.rep.min) {return false;}
-		if (this.rep.max < other.rep.max) {return false;}
-		if ((this.rep.min === other.rep.min) && (!this.rep.minClosed && other.rep.minClosed)) {return false;}
-		if ((this.rep.max === other.rep.max) && (!this.rep.maxClosed && other.rep.maxClosed)) {return false;}
+		if (other.#rep === null) {return true;}
+		if (this.#rep === null) {return false;}
+		if (this.#rep.min > other.#rep.min) {return false;}
+		if (this.#rep.max < other.#rep.max) {return false;}
+		if ((this.#rep.min === other.#rep.min) && (!this.#rep.minClosed && other.#rep.minClosed)) {return false;}
+		if ((this.#rep.max === other.#rep.max) && (!this.#rep.maxClosed && other.#rep.maxClosed)) {return false;}
 		return true;
 	}
 
@@ -134,45 +134,45 @@ export default class Interval {
 
 	/** True iff the interval is empty */
 	public get isEmpty(): boolean {
-		return this.rep === null;
+		return this.#rep === null;
 	}
 
 	/** The minimum value of the interval, or null if the interval is empty */
 	public get min(): number | null {
-		if (this.rep === null) {return null;}
-		return this.rep.min;
+		if (this.#rep === null) {return null;}
+		return this.#rep.min;
 	}
 
 	/** The maximum value of the interval, or null if the interval is empty */
 	public get max(): number | null {
-		if (this.rep === null) {return null;}
-		return this.rep.max;
+		if (this.#rep === null) {return null;}
+		return this.#rep.max;
 	}
 
 	/** True iff the interval's minimum value is included */
 	public get isLeftClosed(): boolean {
-		if (this.rep === null) {return false;}
-		return this.rep.minClosed;
+		if (this.#rep === null) {return false;}
+		return this.#rep.minClosed;
 	}
 
 	/** True iff the interval's maximum value is included */
 	public get isRightClosed(): boolean {
-		if (this.rep === null) {return false;}
-		return this.rep.maxClosed;
+		if (this.#rep === null) {return false;}
+		return this.#rep.maxClosed;
 	}
 
 	/** True iff the interval is closed (both bounds are included) */
 	public get isClosed(): boolean {
-		if (this.rep === null) {return false;}
-		return this.rep.minClosed && this.rep.maxClosed;
+		if (this.#rep === null) {return false;}
+		return this.#rep.minClosed && this.#rep.maxClosed;
 	}
 
 	/**
 	 * @returns a string representation of the interval
 	 */
 	public toString(): string {
-		if (this.rep === null) {return "∅";}
-		return `${this.rep.minClosed ? "[" : "("}${this.rep.min}, ${this.rep.max}${this.rep.maxClosed ? "]" : ")"}`;
+		if (this.#rep === null) {return "∅";}
+		return `${this.#rep.minClosed ? "[" : "("}${this.#rep.min}, ${this.#rep.max}${this.#rep.maxClosed ? "]" : ")"}`;
 	}
 
 }

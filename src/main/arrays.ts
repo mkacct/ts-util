@@ -8,7 +8,7 @@ import {isValue} from "./main.js";
 export default class Arrays {
 	private constructor() {} // prevent instantiation
 
-	private static equalsImpl<T>(a: readonly T[], b: readonly T[], comparator: (a: T, b: T) => boolean): boolean {
+	static #equalsImpl<T>(a: readonly T[], b: readonly T[], comparator: (a: T, b: T) => boolean): boolean {
 		if (a.length !== b.length) {return false;}
 		for (let i = 0; i < a.length; i++) {
 			if ((i in a) && (i in b)) {
@@ -23,22 +23,22 @@ export default class Arrays {
 	 */
 	public static equals<T>(a: readonly T[], b: readonly T[]): boolean {
 		// eslint-disable-next-line eqeqeq
-		return this.equalsImpl(a, b, (x, y) => (x == y));
+		return this.#equalsImpl(a, b, (x, y) => (x == y));
 	}
 
 	/**
 	 * Tests shallow equality of two arrays, using the `===` operator to compare elements
 	 */
 	public static strictEquals<T>(a: readonly T[], b: readonly T[]): boolean {
-		return Arrays.equalsImpl(a, b, (x, y) => (x === y));
+		return Arrays.#equalsImpl(a, b, (x, y) => (x === y));
 	}
 
-	private static isSubarrayAtIndex<T>(array: readonly T[], searchSubarray: readonly T[], indexInt: number): boolean {
+	static #isSubarrayAtIndex<T>(array: readonly T[], searchSubarray: readonly T[], indexInt: number): boolean {
 		if (indexInt < 0 || (indexInt + searchSubarray.length > array.length)) {return false;}
 		return Arrays.strictEquals(array.slice(indexInt, indexInt + searchSubarray.length), searchSubarray);
 	}
 
-	private static resolveIndex(indexInt: number, arrayLength: number): number {
+	static #resolveIndex(indexInt: number, arrayLength: number): number {
 		if (indexInt > arrayLength) {
 			return arrayLength;
 		} else if (indexInt < -arrayLength) {
@@ -49,17 +49,17 @@ export default class Arrays {
 		return indexInt;
 	}
 
-	private static indexOfSubarrayImpl<T>(
+	static #indexOfSubarrayImpl<T>(
 		array: readonly T[], searchSubarray: readonly T[], fromIndexInt: number, direction: 1 | -1
 	): number { // TODO: use KMP algorithm for better performance?
-		fromIndexInt = Arrays.resolveIndex(fromIndexInt, array.length);
+		fromIndexInt = Arrays.#resolveIndex(fromIndexInt, array.length);
 		const upperBound: number = array.length - searchSubarray.length;
 		const startIndex: number = (direction === -1) ? Math.min(fromIndexInt, upperBound) : fromIndexInt;
 		const condition: (i: number) => boolean = (direction === -1)
 			? ((i: number) => (i >= 0))
 			: ((i: number) => (i <= upperBound));
 		for (let i = startIndex; condition(i); i += direction) {
-			if (Arrays.isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
+			if (Arrays.#isSubarrayAtIndex(array, searchSubarray, i)) {return i;}
 		}
 		return -1;
 	}
@@ -75,7 +75,7 @@ export default class Arrays {
 		array: readonly T[], searchSubarray: readonly T[], fromIndex?: number
 	): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : 0;
-		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, 1);
+		return Arrays.#indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, 1);
 	}
 
 	/**
@@ -89,7 +89,7 @@ export default class Arrays {
 		array: readonly T[], searchSubarray: readonly T[], fromIndex?: number
 	): number {
 		let fromIndexInt = isValue(fromIndex) ? toInt(fromIndex) : Infinity;
-		return Arrays.indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, -1);
+		return Arrays.#indexOfSubarrayImpl(array, searchSubarray, fromIndexInt, -1);
 	}
 
 	/**
@@ -115,8 +115,8 @@ export default class Arrays {
 	 */
 	public static startsWith<T>(array: readonly T[], searchSubarray: readonly T[], index?: number): boolean {
 		let indexInt = isValue(index) ? toInt(index) : 0;
-		indexInt = Arrays.resolveIndex(indexInt, array.length);
-		return Arrays.isSubarrayAtIndex(array, searchSubarray, indexInt);
+		indexInt = Arrays.#resolveIndex(indexInt, array.length);
+		return Arrays.#isSubarrayAtIndex(array, searchSubarray, indexInt);
 	}
 
 	/**
@@ -128,8 +128,8 @@ export default class Arrays {
 	 */
 	public static endsWith<T>(array: readonly T[], searchSubarray: readonly T[], endIndex?: number): boolean {
 		let endIndexInt = isValue(endIndex) ? toInt(endIndex) : Infinity;
-		endIndexInt = Arrays.resolveIndex(endIndexInt, array.length);
-		return Arrays.isSubarrayAtIndex(array, searchSubarray, endIndexInt - searchSubarray.length);
+		endIndexInt = Arrays.#resolveIndex(endIndexInt, array.length);
+		return Arrays.#isSubarrayAtIndex(array, searchSubarray, endIndexInt - searchSubarray.length);
 	}
 
 	/**
@@ -275,7 +275,7 @@ export default class Arrays {
 			let cur: T[] = [];
 			let i = 0;
 			while (i < array.length) {
-				if (Arrays.isSubarrayAtIndex(array, separator, i)) {
+				if (Arrays.#isSubarrayAtIndex(array, separator, i)) {
 					res.push(cur);
 					if (res.length >= limitInt) {
 						return res;
