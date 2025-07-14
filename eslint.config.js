@@ -8,6 +8,7 @@ export default tseslint.config(
 	{
 		rules: {
 			"eqeqeq": ["error", "always"],
+			"@typescript-eslint/explicit-member-accessibility": "error",
 			"prefer-const": "off",
 			"@typescript-eslint/no-empty-object-type": "warn",
 			"@typescript-eslint/no-explicit-any": "warn",
