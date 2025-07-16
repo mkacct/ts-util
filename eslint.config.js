@@ -10,6 +10,7 @@ export default tseslint.config(
 			"eqeqeq": ["error", "always"],
 			"@typescript-eslint/explicit-member-accessibility": "error",
 			"prefer-const": "off",
+			"no-unused-private-class-members": "warn",
 			"@typescript-eslint/no-empty-object-type": "warn",
 			"@typescript-eslint/no-explicit-any": "warn",
 			"@typescript-eslint/no-unused-vars": ["warn", {
