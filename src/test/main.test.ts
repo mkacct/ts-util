@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test, {suite} from "node:test";
-import {between, cartesianProduct, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish} from "../main/main.js";
+import {between, cartesianProduct, collapse, isValue, minusProps, padNumber, propsEq, range, requireNonNullish, throwInExpr} from "../main/main.js";
 
 suite("General utilities", (): void => {
 
@@ -130,6 +130,14 @@ suite("General utilities", (): void => {
 		assert.deepEqual(minusProps(OBJ, ["baz"]), {foo: 3, bar: "apple"});
 		assert.deepEqual(minusProps(OBJ, ["foo", "dirt", "baz"]), {bar: "apple"});
 		assert.deepEqual(minusProps(OBJ, ["foo", "bar", "baz"]), {});
+	});
+
+	test("throwInExpr", (): void => {
+		let value: string = "foo";
+		assert.throws(() => {
+			value = throwInExpr(new RangeError());
+		}, RangeError);
+		assert.equal(value, "foo");
 	});
 
 });

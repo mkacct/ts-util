@@ -130,6 +130,16 @@ export function minusProps(obj: AnyRecord, minusKeys: ReadonlyArray<string>): An
 	return result;
 }
 
+/**
+ * Throws the given error from within an expression
+ * @param err to throw
+ * @returns never
+ * @throws {typeof err} always
+ */
+export function throwInExpr<T>(err: unknown): T {
+	throw err;
+}
+
 export function guardKeyIn(key: string, obj: object): key is keyof typeof obj {
 	return key in obj;
 }
