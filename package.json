@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "5.1.0",
+	"version": "5.1.1",
 	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Utilities convenient for any JS/TS project",
 	"keywords": ["util"],
@@ -40,7 +40,8 @@
 		}
 	},
 	"scripts": {
-		"prebuild": "rimraf build",
+		"clean": "rimraf build",
+		"prebuild": "npm run clean",
 		"build": "npx tsc",
 		"test": "node --test \"build/test/**/!(*.sub).test.js\""
 	},
