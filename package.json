@@ -2,7 +2,7 @@
 	"name": "@mkacct/ts-util",
 	"version": "5.1.1",
 	"author": {"name": "MK", "url": "https://mkps.app"},
-	"description": "Utilities convenient for any JS/TS project",
+	"description": "Miscellaneous general utilities for TypeScript projects",
 	"keywords": ["util"],
 	"repository": {"type": "git", "url": "git+https://github.com/mkacct/ts-util.git"},
 	"bugs": {"url": "https://github.com/mkacct/ts-util/issues"},
