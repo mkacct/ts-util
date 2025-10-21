@@ -3,7 +3,10 @@
 import {cartesianProduct} from "./main.js";
 
 type Matrix = Readonly<Record<string, ReadonlyArray<unknown>>>;
-type MatrixStrategyFn<M extends Matrix> = (values: Readonly<{[K in keyof M]: M[K][number];}>) => void;
+
+interface MatrixStrategyFn<M extends Matrix> {
+	(values: Readonly<{[K in keyof M]: M[K][number];}>): void;
+}
 
 /**
  * Calls a function for each combination of values in the "matrix."
