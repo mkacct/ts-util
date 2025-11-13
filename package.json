@@ -9,6 +9,8 @@
 	"license": "MIT",
 	"type": "module",
 	"files": ["build/main"],
+	"main": "build/main/main.js",
+	"types": "build/main/main.d.ts",
 	"exports": {
 		".": {
 			"default": "./build/main/main.js",
