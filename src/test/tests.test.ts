@@ -2,18 +2,20 @@ import assert from "node:assert/strict";
 import test, {suite} from "node:test";
 import {matrixStrategy} from "../main/tests.js";
 
-suite("Test utilities", (): void => {
+suite("tests", (): void => {
 
-	test(`matrixStrategy`, (): void => {
-		{
+	suite("matrixStrategy()", (): void => {
+
+		test("empty matrix", (): void => {
 			let runs: number = 0;
 			matrixStrategy({}, (values): void => {
 				assert.deepEqual(values, {});
 				runs++;
 			});
 			assert.equal(runs, 1);
-		}
-		{
+		});
+
+		test("proper matrix", (): void => {
 			const output: {a: number, b: string}[] = [];
 			matrixStrategy({
 				a: [1, 2, 3],
@@ -29,7 +31,8 @@ suite("Test utilities", (): void => {
 				{a: 3, b: "x"},
 				{a: 3, b: "y"}
 			]);
-		}
+		});
+
 	});
 
 });
