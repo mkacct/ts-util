@@ -47,6 +47,12 @@
 				"close": false
 			},
 			"problemMatcher": []
+		},
+		{
+			"label": "npm update",
+			"type": "shell",
+			"command": "npm update",
+			"problemMatcher": []
 		}
 	]
 }
