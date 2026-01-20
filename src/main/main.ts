@@ -61,6 +61,7 @@ export function collapse(str: string): string {
 }
 
 /**
+ * @deprecated Use `String.padStart()` instead
  * @param n input number
  * @param length minimum length of the output string
  * @param pad character to pad with (default "0")
@@ -68,9 +69,7 @@ export function collapse(str: string): string {
  */
 export function padNumber(n: number, length: number, pad: string = "0"): string {
 	if (pad.length !== 1) {throw new Error(`pad must be one character`);}
-	let s: string = n.toString();
-	while (s.length < length) {s = pad + s;}
-	return s;
+	return n.toString().padStart(length, pad);
 }
 
 /**

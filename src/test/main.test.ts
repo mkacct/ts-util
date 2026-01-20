@@ -111,7 +111,7 @@ suite("main", (): void => {
 
 	});
 
-	suite("padNumber()", (): void => {
+	suite("[deprecated] padNumber()", (): void => {
 
 		test("simple", (): void => {
 			assert.equal(padNumber(3, 0), "3");

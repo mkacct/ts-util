@@ -1,7 +1,5 @@
 // Utility functions for date/time
 
-import {padNumber} from "./main.js";
-
 /**
  * @param year a year (integer) in the Gregorian calendar
  * @returns true iff the year is a leap year
@@ -16,5 +14,11 @@ export function yearIsLeap(year: number): boolean {
  * @note uses the local time zone!
  */
 export function formatSimpleDate(date: Date): string {
-	return `${date.getFullYear()}-${padNumber(date.getMonth() + 1, 2)}-${padNumber(date.getDate(), 2)}`;
+	return `${
+		date.getFullYear()
+	}-${
+		(date.getMonth() + 1).toString().padStart(2, "0")
+	}-${
+		date.getDate().toString().padStart(2, "0")
+	}`;
 }
