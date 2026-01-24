@@ -4,6 +4,8 @@ import Interval from "../main/interval.js";
 
 suite("Interval", (): void => {
 
+	const EMPTY_SET = "\u2205";
+
 	suite("constructor", (): void => {
 
 		test("valid", (): void => {
@@ -15,8 +17,8 @@ suite("Interval", (): void => {
 			assertInterval(new Interval("[", 3, Infinity, ")"), "[3, Infinity)");
 			assertInterval(new Interval("(", -Infinity, Infinity, ")"), "(-Infinity, Infinity)");
 			assertInterval(new Interval("[", 3, 3, "]"), "[3, 3]");
-			assertInterval(new Interval("(", 3, 3, ")"), "\u2205");
-			assertInterval(new Interval("(", Infinity, Infinity, ")"), "\u2205");
+			assertInterval(new Interval("(", 3, 3, ")"), EMPTY_SET);
+			assertInterval(new Interval("(", Infinity, Infinity, ")"), EMPTY_SET);
 		});
 
 		test("invalid", (): void => {
@@ -36,7 +38,7 @@ suite("Interval", (): void => {
 
 		test("valid", (): void => {
 			assertInterval(Interval.open(3, 5), "(3, 5)");
-			assertInterval(Interval.open(3, 3), "\u2205");
+			assertInterval(Interval.open(3, 3), EMPTY_SET);
 			assertInterval(Interval.open(-Infinity, 5), "(-Infinity, 5)");
 			assertInterval(Interval.open(3, Infinity), "(3, Infinity)");
 		});
@@ -293,7 +295,7 @@ suite("Interval", (): void => {
 	});
 
 	test("toString()", (): void => {
-		assert.equal(Interval.EMPTY.toString(), "\u2205");
+		assert.equal(Interval.EMPTY.toString(), EMPTY_SET);
 		assert.equal(Interval.open(3, 5).toString(), "(3, 5)");
 		assert.equal(Interval.closed(3, 5).toString(), "[3, 5]");
 		assert.equal(Interval.open(-Infinity, Infinity).toString(), "(-Infinity, Infinity)");
