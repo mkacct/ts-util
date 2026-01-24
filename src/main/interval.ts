@@ -171,7 +171,7 @@ export default class Interval {
 	 * @returns a string representation of the interval
 	 */
 	public toString(): string {
-		if (this.#rep === null) {return "∅";}
+		if (this.#rep === null) {return "\u2205";}
 		return `${this.#rep.minClosed ? "[" : "("}${this.#rep.min}, ${this.#rep.max}${this.#rep.maxClosed ? "]" : ")"}`;
 	}
 
