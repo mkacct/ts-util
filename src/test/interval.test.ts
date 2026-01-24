@@ -283,6 +283,17 @@ suite("Interval", (): void => {
 		assert.equal(new Interval("[", 3, Infinity, ")").isRightClosed, false);
 	});
 
+	test("isOpen", (): void => {
+		assert.equal(Interval.EMPTY.isOpen, true);
+		assert.equal(Interval.open(3, 5).isOpen, true);
+		assert.equal(Interval.closed(3, 5).isOpen, false);
+		assert.equal(Interval.open(-Infinity, Infinity).isOpen, true);
+		assert.equal(new Interval("[", 3, 5, ")").isOpen, false);
+		assert.equal(new Interval("(", 3, 5, "]").isOpen, false);
+		assert.equal(new Interval("(", -Infinity, 5, "]").isOpen, false);
+		assert.equal(new Interval("[", 3, Infinity, ")").isOpen, false);
+	});
+
 	test("isClosed", (): void => {
 		assert.equal(Interval.EMPTY.isClosed, false);
 		assert.equal(Interval.open(3, 5).isClosed, false);

@@ -161,6 +161,12 @@ export default class Interval {
 		return this.#rep.maxClosed;
 	}
 
+	/** True iff the interval is open (neither of the bounds are included) */
+	public get isOpen(): boolean {
+		if (this.#rep === null) {return true;}
+		return !this.#rep.minClosed && !this.#rep.maxClosed;
+	}
+
 	/** True iff the interval is closed (both bounds are included) */
 	public get isClosed(): boolean {
 		if (this.#rep === null) {return false;}
