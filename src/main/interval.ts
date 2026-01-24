@@ -28,6 +28,7 @@ export default class Interval {
 	 * @param max maximum value
 	 * @param right bracket signifying the type of right boundary
 	 * @returns the new interval
+	 * @throws {RangeError} if the arguments do not represent a valid interval
 	 */
 	public constructor(left: IntervalLeftBracket, min: number, max: number, right: IntervalRightBracket) {
 		const minClosed: boolean = left === "[";

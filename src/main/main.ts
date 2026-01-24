@@ -22,6 +22,7 @@ export function isValue(value: unknown): value is Value {
  * Throws iff value is undefined or null
  * @param value anything
  * @returns value
+ * @throws {Error} if value is nullish
  */
 export function requireNonNullish<T extends Value>(value: T | undefined | null): T {
 	if (!isValue(value)) {throw new Error(`Value must not be nullish`);}
@@ -66,6 +67,7 @@ export function collapse(str: string): string {
  * @param length minimum length of the output string
  * @param pad character to pad with (default "0")
  * @returns number with pad character repeatedly prepended to meet the minimum length
+ * @throws {Error} if `pad` is not a single character
  */
 export function padNumber(n: number, length: number, pad: string = "0"): string {
 	if (pad.length !== 1) {throw new Error(`pad must be one character`);}
