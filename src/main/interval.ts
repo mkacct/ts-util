@@ -75,7 +75,6 @@ export default class Interval {
 	 * @returns true iff the interval contains n
 	 */
 	public contains(n: number): boolean {
-		if (isNaN(n)) {return false;}
 		if (!isFinite(n)) {return false;}
 		if (this.#rep === null) {return false;}
 		if ((n < this.#rep.min) || (n > this.#rep.max)) {return false;}
