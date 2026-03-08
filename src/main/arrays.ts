@@ -23,7 +23,7 @@ export default class Arrays {
 	 */
 	public static equals<T>(a: readonly T[], b: readonly T[]): boolean {
 		// eslint-disable-next-line eqeqeq
-		return this.#equalsImpl(a, b, (x, y) => (x == y));
+		return Arrays.#equalsImpl(a, b, (x, y) => (x == y));
 	}
 
 	/**
