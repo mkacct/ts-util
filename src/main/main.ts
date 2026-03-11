@@ -96,7 +96,7 @@ function cartesianProductRecurse<T extends ReadonlyArray<ReadonlyArray<unknown>>
 		res.push(cur.slice() as {[K in keyof T]: T[K][number];});
 		return;
 	}
-	for (const value of arrays[index]) {
+	for (const value of arrays[index] as T) {
 		cur[index] = value;
 		cartesianProductRecurse(arrays, res, cur, index + 1);
 	}

@@ -1,9 +1,13 @@
 // Utility functions for string formatting
 
+import {isValue} from "./main.js";
+
 function blockLines(indent: number, str: string): string[] {
 	const lines: string[] = str.split("\n");
 	lines.shift();
-	if (lines[lines.length - 1].trimEnd() === "") {lines.pop();}
+	const lastLine = lines[lines.length - 1];
+	if (!isValue(lastLine)) {return [];}
+	if (lastLine.trimEnd() === "") {lines.pop();}
 	return lines.map((line: string): string => line.trimEnd().slice(indent));
 }
 

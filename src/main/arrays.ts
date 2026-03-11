@@ -12,7 +12,7 @@ export default class Arrays {
 		if (a.length !== b.length) {return false;}
 		for (let i = 0; i < a.length; i++) {
 			if ((i in a) && (i in b)) {
-				if (!comparator(a[i], b[i])) {return false;}
+				if (!comparator(a[i] as T, b[i] as T)) {return false;}
 			} else if ((i in a) || (i in b)) {return false;}
 		}
 		return true;
@@ -283,7 +283,7 @@ export default class Arrays {
 					cur = [];
 					i += separator.length;
 				} else {
-					cur.push(array[i]);
+					cur.push(array[i] as T);
 					i++;
 				}
 			}
