@@ -1,6 +1,6 @@
 {
 	"name": "@mkacct/ts-util",
-	"version": "5.2.2",
+	"version": "5.3.0",
 	"author": {"name": "MK", "url": "https://mkps.app"},
 	"description": "Miscellaneous general utilities for TypeScript projects",
 	"keywords": ["util"],
@@ -39,6 +39,10 @@
 		"./tests": {
 			"default": "./build/main/tests.js",
 			"types": "./build/main/tests.d.ts"
+		},
+		"./web": {
+			"default": "./build/main/web.js",
+			"types": "./build/main/web.d.ts"
 		}
 	},
 	"scripts": {
